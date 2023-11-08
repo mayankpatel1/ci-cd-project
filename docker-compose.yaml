@@ -1,0 +1,41 @@
+version: "3.9"
+networks:
+  project:
+    driver: bridge
+services:
+  mongodb:
+    image: mariadb:v1
+    container_name: mariadb
+  web:
+    image: web:v1
+    container_name: web
+    ports:
+      - "80:80"
+    depends_on:
+    - payments
+    - mariadb
+    - orders
+    - user
+    - cart
+    - mysql
+    - products
+  user:
+    image: user:v1
+    container_name: user
+    depends_on:
+    - mariadb
+  cart:
+    image: cart:v1
+    container_name: cart
+    depends_on:
+    - products
+  mysql:
+    image: mysql:v1
+    container_name: mysql
+    payment:
+    image: payment:v1
+    container_name: payment
+    depends_on:
+    - 
+  
+
